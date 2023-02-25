@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Copy Image to Clipboard via Javascript</title>
+    </head>
+    <body>
+        <h2>Copy Image to Clipboard via Javascript</h2>
+        <div class="cpimg">
+        <img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+        AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+        9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script>
+            function select(elem) {
+                var doc = document;
+                if (doc.body.createTextRange) {
+                    var range = document.body.createTextRange();
+                    range.moveToElementText(elem);
+                    range.select();
+                } else if (window.getSelection) {
+                    var selection = window.getSelection();
+                    var range = document.createRange();
+                    range.selectNodeContents(elem);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+            }
+            $(".cpimg").click(function (f) {
+                $(this).attr("contenteditable", true);
+                select($(this).get(0));
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+                $(this).removeAttr("contenteditable");
+                alert("Image copied to the clipboard");
+            });
+        </script>
+    </body>
+</html>
